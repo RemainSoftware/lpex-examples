@@ -9,8 +9,5 @@
                id="com.remainsoftware.lpex.examples.preload"/>
     </extension>
 
- <extension
-       point="org.eclipse.ui.startup">
- </extension>
 
 </plugin>

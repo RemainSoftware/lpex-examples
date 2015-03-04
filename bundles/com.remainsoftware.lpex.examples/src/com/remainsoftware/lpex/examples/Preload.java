@@ -10,7 +10,12 @@
  ******************************************************************************/
 package com.remainsoftware.lpex.examples;
 
+import java.util.ArrayList;
+
 import com.ibm.lpex.alef.LpexPreload;
+import com.ibm.lpex.core.LpexView;
+import com.remainsoftware.lpex.examples.actions.LPEXHelloWorldAction;
+import com.remainsoftware.lpex.examples.actions.LPEXInfoAction;
 
 /**
  * See <a href=
@@ -24,5 +29,88 @@ import com.ibm.lpex.alef.LpexPreload;
  */
 public class Preload implements LpexPreload {
 	public void preload() {
+		LpexView.doGlobalCommand("set default.popup "
+				+ getLPEXPopupMenu(LpexView.globalQuery("current.popup")));
+		LpexView.doGlobalCommand("set default.updateProfile.userActions "
+				+ getLPEXActions(LpexView.globalQuery("current.updateProfile.userActions")));
+	}
+
+	/**
+	 * Adds our actions to the LPEX actions.
+	 * 
+	 * @param existingActions
+	 * @return the new user actions
+	 */
+	protected String getLPEXActions(String existingActions) {
+
+		ArrayList<String> actions = new ArrayList<String>();
+
+		actions.add(LPEXInfoAction.class.getSimpleName() + " " + LPEXInfoAction.class.getName());
+		actions.add(LPEXHelloWorldAction.class.getSimpleName() + " " + LPEXHelloWorldAction.class.getName());
+
+		StringBuffer newUserActions = new StringBuffer();
+
+		if ((existingActions == null) || (existingActions.equalsIgnoreCase("null"))) {
+			for (String action : actions) {
+				newUserActions.append(action + " ");
+			}
+		}
+
+		else {
+			newUserActions.append(existingActions + " ");
+			for (String action : actions) {
+				if (existingActions.indexOf(action) < 0) {
+					newUserActions.append(action + " ");
+				}
+			}
+		}
+
+		return newUserActions.toString();
+	}
+
+	/**
+	 * Fills the LPEX pop-up menu like so. The action added consists of the
+	 * visible name and the command name. The command name is added in
+	 * {@link #getLPEXActions(String)}.
+	 * 
+	 * @param popupMenu
+	 * @return the new menu
+	 */
+	protected String getLPEXPopupMenu(String popupMenu) {
+
+		String startMenu = "beginSubmenu \"Remain Examples\"";
+		String startSubMenu = "beginSubmenu \"Remain Submenu\"";
+
+		ArrayList<String> menuActions = new ArrayList<String>();
+
+		menuActions.add("\"Info\" " /* Visible name */+ LPEXInfoAction.class.getSimpleName() /*
+																							 * Command
+																							 * name
+																							 */);
+		menuActions.add("\"Hello\" " + LPEXHelloWorldAction.class.getSimpleName());
+
+		StringBuffer newMenu = new StringBuffer("");
+		newMenu.append(startMenu);
+		newMenu.append(" ");
+		for (String action : menuActions) {
+			newMenu.append(action + " ");
+		}
+
+		newMenu.append(startSubMenu);
+		newMenu.append(" ");
+		for (String action : menuActions) {
+			newMenu.append(action + " ");
+		}
+		newMenu.append("endSubmenu separator endSubmenu separator ");
+
+		if (popupMenu != null && popupMenu.contains(newMenu.toString())) {
+			return popupMenu;
+		}
+
+		if (popupMenu != null) {
+			return newMenu.toString() + " " + popupMenu;
+		}
+
+		return newMenu.toString();
 	}
 }

@@ -31,8 +31,6 @@ public class LPEXInfoDialog extends Dialog {
 
 	private Text txtAuthor;
 
-
-
 	/**
 	 * Create the dialog.
 	 * 
@@ -89,7 +87,8 @@ public class LPEXInfoDialog extends Dialog {
 			Label label = new Label(shell, SWT.NONE);
 			label.setText(command);
 			Text text = new Text(shell, SWT.BORDER);
-			text.setText(fLPEXView.query(command));
+			String value = fLPEXView.query(command);
+			text.setText(value == null ? "null" : value);
 			text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		}
 	}
