@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension
+         id="com.remainsoftware.lpex.examples"
+         point="com.ibm.lpex.preload">
+      <preload
+         class="com.remainsoftware.lpex.examples.Preload"
+               id="com.remainsoftware.lpex.examples.preload"/>
+    </extension>
+
+ <extension
+       point="org.eclipse.ui.startup">
+ </extension>
+
+</plugin>
