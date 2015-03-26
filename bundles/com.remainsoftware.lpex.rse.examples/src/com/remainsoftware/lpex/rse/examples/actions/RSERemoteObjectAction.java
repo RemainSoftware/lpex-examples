@@ -2,6 +2,7 @@ package com.remainsoftware.lpex.rse.examples.actions;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.ITextEditor;
 
 import com.ibm.lpex.core.LpexAction;
 import com.ibm.lpex.core.LpexView;
@@ -11,7 +12,7 @@ public class RSERemoteObjectAction implements LpexAction {
 
 	@Override
 	public boolean available(LpexView arg0) {
-		return true;
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor() instanceof ITextEditor;
 	}
 
 	@Override
