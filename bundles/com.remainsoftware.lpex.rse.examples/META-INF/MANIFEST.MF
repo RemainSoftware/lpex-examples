@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: LPEX RSE Examples
+Bundle-SymbolicName: com.remainsoftware.lpex.rse.examples;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Remain Software
+Require-Bundle: org.eclipse.ui,
+ com.ibm.lpex,
+ org.eclipse.core.resources;bundle-version="3.8.1",
+ com.ibm.etools.systems.editor;bundle-version="9.1.0",
+ org.eclipse.rse.ui;bundle-version="3.3.318",
+ org.eclipse.rse.core;bundle-version="3.3.103",
+ org.eclipse.core.runtime;bundle-version="3.8.0",
+ org.eclipse.ui.workbench.texteditor;bundle-version="3.8.0"
